@@ -1,0 +1,28 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+.nav{
+    background-color: gray;
+    display: flex;
+    justify-content:space-around;
+    align-items:center;
+    padding: 5px;
+}
+.nav p:hover{
+    
+}
+.nav img{
+    width:50px;
+    height:50px;
+    object-fit: cover;
+    border-radius:50%
+}
+.search-wrapper input{
+    height:25px;
+    
+    border-radius: 15px;
+    outline:none;
+    border: 1px solid transparent; 
+}

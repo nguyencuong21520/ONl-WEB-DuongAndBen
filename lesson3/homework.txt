@@ -1,0 +1,3 @@
+Chọn font chữ cho thanh nav
+làm hiệu ứng khi  hover
+link đường dẫn vào thanh nav
