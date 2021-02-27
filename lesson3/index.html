@@ -24,6 +24,39 @@
         <p>Contact</p>
         <p>Login <i class="fal fa-user"></i> </p>
     </div>
+    <script>
+        // let soTien = prompt('Nhap')
+        // let tien =[500,200,100,50,20,10]
+
+        // for(let i = 0; i<6; i++){
+        //     let to = soTien/tien[i]
+        //     if(to>0){
+        //         console.log(`${parseInt(to)} tờ ${tien[i]}`)
+        //     }
+        //     soTien = soTien%tien[i]
+        // }
+        const arr = [{
+                id: 1,
+                name: 'Jonn'
+            },
+            {
+                id: 2,
+                name: 'Kate'
+            },
+            {
+                id: 3,
+                name: 'Mike'
+            }
+        ]
+        let id = arr.map((obj)=>{
+            return obj.id
+        })
+        let name = arr.map((obj)=>{
+            return obj.name
+        })
+        console.log(name)
+        console.log(id)
+    </script>
 </body>
 
 </html>
