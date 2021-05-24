@@ -32,3 +32,15 @@ lottie-player{
 .card{
     margin-bottom: 30px;
 }
+.card-text{
+    height:170px;
+    overflow:auto
+}
+.card-title{
+    height:70px;
+    overflow: hidden;
+}
+.card img{
+    height:230px;
+    object-fit: cover;
+}
