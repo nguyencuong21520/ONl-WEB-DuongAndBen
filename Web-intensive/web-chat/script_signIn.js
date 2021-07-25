@@ -25,7 +25,7 @@ let signIn_process = async (data)=>{
         let result = await firebase.auth().signInWithEmailAndPassword(email, password)
         let user = result.user
         if (user.emailVerified) {
-            alert("success")
+            window.open('./chat.html','_self')
         } else {
             throw new Error('Must verify email!')
         }
