@@ -53,14 +53,18 @@
       </div>
       <div class="body_chat_container">
         <div class="title d-flex justify-content-between">
-          <h2 id="chat_name" class="">...</h2>
+          <div>
+            <h2 id="chat_name" class="">...</h2>
+            <p id="currentEmail" style="align-self: center;">...</p>
+          </div>
+            <p id="currentID" style="align-self: center; width:20px; overflow: hidden;">...</p>
           <span id="chat_clock" class="d-flex align-items-center mx-5"></span>
         </div>
         <div class="chat">
           <div class="chat-content-container">
           </div>
-          <form action="">
-            <input type="text" placeholder="Enter your message" />
+          <form id="sent_message">
+            <input name="m" type="text" placeholder="Enter your message" />
             <button type="submit">
               <lottie-player
                 src="https://assets2.lottiefiles.com/packages/lf20_kzb2lxrr.json"

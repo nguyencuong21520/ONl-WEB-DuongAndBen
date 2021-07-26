@@ -6,6 +6,7 @@ async function init() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user && user.emailVerified){
             let email = user.email
+            setUpConversationchange(email)
             loadConversations(email)
         }
         else
@@ -14,8 +15,8 @@ async function init() {
 }
 
 let loadConversations = async (email)=>{
-    var currentEmail = email
-
+    var currentEmail = email.trim()
+    document.querySelector("#currentEmail").innerHTML = currentEmail
     let result = await firebase.firestore()
     .collection('chat')
     .where('users','array-contains',currentEmail)
@@ -23,7 +24,7 @@ let loadConversations = async (email)=>{
 
     let Conversations = getDataFromDocs(result.docs)
     console.log(Conversations)
-    renderChat(Conversations[1], currentEmail)
+    renderChat(Conversations[0], currentEmail)
     rederListFriends(Conversations, currentEmail)
 }
 
@@ -56,7 +57,10 @@ let getDataFromDocs = (docs)=>{
 let renderChat = (data,email)=>{
     let dom = document.querySelector('.chat-content-container')
     let chat_name = document.querySelector('#chat_name')
+    let chat_ID = document.querySelector('#currentID')
+
     chat_name.innerHTML = data.friendName
+    chat_ID.innerHTML = data.id
     dom.innerHTML = ''
 
     for(let i = 0; i<data.messages.length; i++){
@@ -139,3 +143,61 @@ clockChat()
 setInterval(()=>{
     clockChat()
 },1000)
+
+let form = document.querySelector("#sent_message")
+form.onsubmit = (e)=>{
+    e.preventDefault()
+    let message = form.m.value.trim()
+    let currentID = document.querySelector("#currentID").textContent
+    let currentEmail = document.querySelector("#currentEmail").textContent
+
+    updateNewMessage(message,currentID,currentEmail)
+    
+
+    form.m.value = ""
+
+}
+
+
+let updateNewMessage = async (messageContent,currentID,email) => {
+    if (currentID) {
+        let conversationId = currentID
+        let currentEmail = email
+        let message = {
+            content: messageContent,
+            sentAt: currentEmail,
+        }
+        await firebase.firestore()
+            .collection('chat')
+            .doc(conversationId)
+            .update({
+                messages: firebase.firestore.FieldValue.arrayUnion(message)
+            })
+    }
+}
+
+let setUpConversationchange =  async (email) => {
+    let skipRun = true
+    let currentEmail = email
+    console.log(currentEmail)
+    firebase.firestore()
+    .collection('chat')
+    .where('users', 'array-contains', currentEmail)
+    .onSnapshot(function (snapshot) {
+        if (skipRun) {
+            skipRun = false
+            return
+        }
+
+        let docChanges = snapshot.docChanges()
+        for (let docChange of docChanges) {
+            let type = docChange.type
+            let conversationDoc = docChange.doc
+            let conversation = getDataFromDoc(conversationDoc)
+
+            if (type == 'modified') {
+                renderChat(conversation,currentEmail )
+            }
+        }
+    })
+}
