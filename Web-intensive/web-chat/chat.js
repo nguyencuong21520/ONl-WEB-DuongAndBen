@@ -10,7 +10,7 @@ async function init() {
             loadConversations(email)
         }
         else
-            console.log("bbbb");
+            alert("bạn cần phải đăng nhập")
     })
 }
 
